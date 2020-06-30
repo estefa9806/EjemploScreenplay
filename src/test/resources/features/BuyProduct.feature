@@ -5,8 +5,8 @@ Feature:Add an item to the shopping cart
 Scenario: Add an item to the shopping cart
      Given that Mariana is logged in
     |user|pass|
-    |  usuario  |  Mariana123 |
-    Then successful login is validated with usuario
+    |  mariana  |  Mariana123 |
+    Then successful login is validated with mariana
     When and add a tablet to the shopping cart
     |menu|product|
     |TABLETS|HP Elite x2 1011 G1 Tablet|
