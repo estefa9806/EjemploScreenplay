@@ -7,36 +7,41 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
 import net.serenitybdd.screenplay.actions.Click;
+
+import java.util.List;
+import java.util.Map;
+
 import static com.advantageonlineshopping.userinterfaces.LoginPage.*;
 
 public class SelectProductForCart implements Task {
-    private String product;
-    private String productName;
+    private List<Map<String, String>> listDatos;
 
-    public SelectProductForCart(String product, String productName) {
-        this.product = product;
-        this.productName = productName;
+    public SelectProductForCart(List<Map<String, String>> listDatos) {
+        this.listDatos = listDatos;
     }
 
     @Override
     public <T extends Actor> void performAs(T actor) {
-        actor.attemptsTo(Wait.aMoment(2));
-        switch (product.toUpperCase()) {
-            case "TABLETS":
-                actor.attemptsTo(Click.on(BTN_TABLE));
-                break;
-            case "SPEAKERS":
-                actor.attemptsTo(Click.on(BTN_SPEKEARS));
-                break;
-            default:
-                Log.printError("No se encontro el elemento");
-                break;
+        for (int i=0;i<listDatos.size();i++) {
+            switch (listDatos.get(i).get("menu").toUpperCase()) {
+                case "TABLETS":
+                    actor.attemptsTo(Click.on(BTN_TABLE));
+                    break;
+                case "SPEAKERS":
+                    actor.attemptsTo(Click.on(BTN_SPEKEARS));
+                    break;
+                default:
+                    Log.printError("No se encontro el elemento");
+                    break;
+            }
+            actor.attemptsTo(Click.on(PRODUCT.of(listDatos.get(i).get("product"))));
+            actor.attemptsTo( Click.on(BTN_ADD_CAR), Click.on(BTN_HOME));
         }
-        actor.attemptsTo(Click.on(PRODUCT.of(productName)), Wait.aMoment(2), Click.on(BTN_ADD_CAR));
+
     }
 
-    public static SelectProductForCart inPage(String product, String productName) {
-        return Tasks.instrumented(SelectProductForCart.class, product, productName);
+    public static SelectProductForCart inPage(List<Map<String, String>> listDatos) {
+        return Tasks.instrumented(SelectProductForCart.class, listDatos);
     }
 
 }

@@ -6,8 +6,15 @@ Scenario: Add an item to the shopping cart
      Given that Mariana is logged in
     |user|pass|
     |  mariana  |  Mariana123 |
-    Then successful login is validated with mariana
-    When and add a tablet to the shopping cart
-    |menu|product|
-    |TABLETS|HP Elite x2 1011 G1 Tablet|
+   Then successful login is validated with mariana
+   When and add a tablet to the shopping cart
+   |menu|product|
+   |TABLETS|HP Elite x2 1011 G1 Tablet|
+   |SPEAKERS|Bose SoundLink Wireless Speaker|
+  #  Then it is verified that the products have been added
+    #  |menu|product|
+     # |TABLETS|HP Elite x2 1011 G1 Tablet|
+      #|SPEAKERS|Bose SoundLink Wireless Speaker|
+
+
 

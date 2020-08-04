@@ -1,5 +1,6 @@
 package com.advantageonlineshopping.stepdefinitions;
 
+import com.advantageonlineshopping.questions.CheckProducts;
 import com.advantageonlineshopping.questions.TheLoginIsSuccessful;
 import com.advantageonlineshopping.tasks.Login;
 import com.advantageonlineshopping.tasks.SelectProductForCart;
@@ -14,6 +15,7 @@ import net.serenitybdd.screenplay.actors.OnlineCast;
 import java.util.List;
 import java.util.Map;
 
+import static com.advantageonlineshopping.userinterfaces.LoginPage.ITEMS_IN_THE_CAR;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
@@ -36,8 +38,12 @@ public void setTheStage() {
     }
     @When("^and add a tablet to the shopping cart$")
     public void andAddATabletToTheShoppingCart(List<Map<String, String>> listDatos) {
-        theActorInTheSpotlight().attemptsTo(SelectProductForCart.inPage(listDatos.get(0).get("menu"),listDatos.get(0).get("product")));
+        theActorInTheSpotlight().attemptsTo(SelectProductForCart.inPage(listDatos));
     }
 
+    @Then("^it is verified that the products have been added$")
+    public void itIsVerifiedThatTheProductsHaveBeenAdded(List<Map<String, String>> listDatos) {
+        theActorInTheSpotlight().should(seeThat(CheckProducts.inShoppingCar(ITEMS_IN_THE_CAR)));
+    }
 
 }
